@@ -3,6 +3,8 @@ version: "3.3"
 services:
   master:
     image: cptactionhank/atlassian-jira-software:7.12.3
+    volumes:
+      - ${MASTER_PATH}:/var/atlassian/jira
     environment:
       - VIRTUAL_HOST=${MASTER_HOST}
       - VIRTUAL_PORT=8080
