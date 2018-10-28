@@ -5,6 +5,7 @@ services:
     image: cptactionhank/atlassian-jira-software:7.12.3
     volumes:
       - ${MASTER_PATH}:/var/atlassian/jira
+      - ${MASTER_PATH}/conf/server.xml:/opt/atlassian/jira/conf/server.xml
       - ${MASTER_PATH}/atlassian-extras-3.2.jar:/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
     environment:
       - VIRTUAL_HOST=${MASTER_HOST}
