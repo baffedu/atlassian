@@ -4,21 +4,34 @@ services:
   jira_software:
     image: cptactionhank/atlassian-jira-software:7.12.3
     volumes:
-      - ${SOFTWARE_PATH}:/var/atlassian/jira
-      - ${SOFTWARE_PATH}/conf/server.xml:/opt/atlassian/jira/conf/server.xml
-      - ${SOFTWARE_PATH}/atlassian-extras-3.2.jar:/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
+      - jira_software-logs:/opt/atlassian/jira/logs
+      - jira_software-data:/var/atlassian/jira
+      - ./software/atlassian-extras-3.2.jar:/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
     environment:
+      - X_PROXY_NAME=${SOFTWARE_HOST}
+      - X_PROXY_SCHEME=https
+      - X_PROXY_PORT=443
       - VIRTUAL_HOST=${SOFTWARE_HOST}
       - VIRTUAL_PORT=8080
   confluence:
-    image: cptactionhank/atlassian-confluence:6.14.1
+    image: cptactionhank/atlassian-confluence:6.15.4
     volumes:
-      - ${CONFLUENCE_PATH}:/var/atlassian/confluence
-      - ${CONFLUENCE_PATH}/conf/server.xml:/opt/atlassian/confluence/conf/server.xml
+      - confluence-data:/var/atlassian/confluence
+      - confluence-logs:/opt/atlassian/confluence/logs
+      - ./confluence/atlassian-extras-decoder-v2-3.4.1.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.4.1.jar
     environment:
+      - X_PROXY_NAME=${CONFLUENCE_HOST}
+      - X_PROXY_SCHEME=https
+      - X_PROXY_PORT=443
       - VIRTUAL_HOST=${CONFLUENCE_HOST}
       - VIRTUAL_PORT=8090
   # jira_servicedesk:
+
+volumes:
+  jira_software-data:
+  jira_software-logs:
+  confluence-data:
+  confluence-logs:
 
 # docker network create --driver=bridge --subnet=10.50.0.0/16 baffedu
 networks:
