@@ -8,6 +8,7 @@ services:
       - jira_software-data:/var/atlassian/jira
       - ./software/atlassian-extras-3.2.jar:/opt/atlassian/jira/atlassian-jira/WEB-INF/lib/atlassian-extras-3.2.jar
     environment:
+      - TZ=Asia/Chongqing
       - X_PROXY_NAME=${SOFTWARE_HOST}
       - X_PROXY_SCHEME=https
       - X_PROXY_PORT=443
@@ -20,6 +21,7 @@ services:
       - confluence-logs:/opt/atlassian/confluence/logs
       - ./confluence/atlassian-extras-decoder-v2-3.4.1.jar:/opt/atlassian/confluence/confluence/WEB-INF/lib/atlassian-extras-decoder-v2-3.4.1.jar
     environment:
+      - TZ=Asia/Chongqing
       - X_PROXY_NAME=${CONFLUENCE_HOST}
       - X_PROXY_SCHEME=https
       - X_PROXY_PORT=443
